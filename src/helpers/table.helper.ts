@@ -92,7 +92,7 @@ const openNeighbourCells = (newTable: any[], bombsArray: number[][], indexColumn
             !isOwnCell && 
             (newTable[j][i] === "" || 
             newTable[j][i] === "🚩" || 
-            newTable[j][i] === "❔"
+            newTable[j][i] === "❓"
           )) {
            newTable = addOpenCellToTable(j, i, newTable, bombsArray, maxCol, maxRow);
           }
@@ -133,7 +133,7 @@ export const gameIsWon = (visibleTable: any[], bombsArray: number[][]) => {
       return row.some((item: string, indexColumn: number) => {
         return (item === "" && !isBombInCell(bombsArray, indexRow, indexColumn)) || 
         (item === "🚩" && !isBombInCell(bombsArray, indexRow, indexColumn)) || 
-        (item === "❔"  && !isBombInCell(bombsArray, indexRow, indexColumn))
+        (item === "❓"  && !isBombInCell(bombsArray, indexRow, indexColumn))
       })
     })
 }

@@ -36,7 +36,7 @@ const TableComponent = ({
     if (selectedCursor.cursor === CursorEnum.OPEN) {
       if (
         visibleTable[indexRow][indexColumn] !== "🚩" &&
-        visibleTable[indexRow][indexColumn] !== "❔"
+        visibleTable[indexRow][indexColumn] !== "❓"
       ) {
         return openCell(
           indexRow,
@@ -89,7 +89,7 @@ const TableComponent = ({
           display: "flex",
           gap: 2,
           flexDirection: "column",
-          border: "2px solid white",
+          border: "2px solid rgb(var(--foreground-rgb))",
           padding: 2,
           backgroundColor: "grey",
         }}
@@ -116,7 +116,7 @@ const TableComponent = ({
                       margin: 0,
                       width: 18,
                       height: 18,
-                      border: "1px solid grey",
+                      border: "1px solid rgb(var(--foreground-rgb))",
                       backgroundColor: "white",
                       cursor: "pointer",
                     }}
@@ -166,7 +166,7 @@ const CellSwitch = ({ item }: { item: string | number }) => {
   switch (item) {
     case 0:
       return <p></p>;
-    case "❔":
+    case "❓":
     case "💣":
     case "🚩":
       return <p style={{ fontSize: 12 }}>{item}</p>;

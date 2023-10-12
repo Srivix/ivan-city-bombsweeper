@@ -35,25 +35,37 @@ const Game = () => {
     <>
       <div
         style={{
+          height: "100vh",
           padding: 8,
           display: "flex",
           flexDirection: "column",
           gap: 32,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
         <h1>Buscaminas</h1>
-        <div style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
           <ModeSelector
             setSelectedMode={setSelectedMode}
             selectedMode={selectedMode}
           />
           <button
             style={{
-              fontSize: 16,
-              padding: 2,
-              backgroundColor: "#353030",
+              borderRadius: 9,
+              fontFamily: "Times New Roman",
+              fontWeight: 900,
+              color: "rgb(var(--background-start-rgb))",
+              backgroundColor: "rgb(var(--foreground-rgb))",
+              fontSize: 18,
+              padding: 3,
             }}
             onClick={onClickReset}
           >

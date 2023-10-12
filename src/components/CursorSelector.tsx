@@ -17,15 +17,18 @@ const CursorSelector = ({
         return (
           <div
             style={{
+              cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 14,
               width: 24,
               height: 24,
-              border: "2px solid white",
+              border: "2px solid rgb(var(--foreground-rgb))",
               background:
-                selectedCursor.cursor === cursor.cursor ? "grey" : "white",
+                selectedCursor.cursor === cursor.cursor
+                  ? "rgb(var(--background-start-rgb))y"
+                  : "rgb(var(--foreground-rgb))",
               padding: 2,
               paddingBottom: 3,
             }}

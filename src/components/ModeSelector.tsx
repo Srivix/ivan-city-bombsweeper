@@ -25,7 +25,9 @@ const ModeSelector = ({
             style={{
               fontSize: 20,
               borderBottom:
-                selectedMode.mode === mode.mode ? "1px solid white" : "",
+                selectedMode.mode === mode.mode
+                  ? "1px solid rgb(var(--foreground-rgb))"
+                  : "",
             }}
             key={mode.mode}
             onClick={() => setSelectedMode(mode)}
