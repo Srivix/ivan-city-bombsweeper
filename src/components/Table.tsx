@@ -75,7 +75,9 @@ const TableComponent = ({
       }}
     >
       {isWon && (
-        <p style={{ fontSize: 20 }}>¡Enhorabuena, has ganado titán! 👏✨</p>
+        <p style={{ fontSize: 16 }}>
+          👏✨ ¡Enhorabuena, has ganado titán! 👏✨
+        </p>
       )}
       {isLost && <p style={{ fontSize: 20 }}>💥Has perdido💥</p>}
       <CursorSelector
@@ -100,7 +102,6 @@ const TableComponent = ({
                 display: "flex",
                 gap: 2,
                 flexDirection: "row",
-                cursor: "pointer",
               }}
             >
               {row.map((item: string, idx: number) => {
@@ -117,6 +118,7 @@ const TableComponent = ({
                       height: 18,
                       border: "1px solid grey",
                       backgroundColor: "white",
+                      cursor: "pointer",
                     }}
                     key={idx}
                     onClick={() => {

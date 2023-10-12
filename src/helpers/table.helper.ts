@@ -131,7 +131,7 @@ export const gameIsLost = (visibleTable: any[]) => {
 export const gameIsWon = (visibleTable: any[], bombsArray: number[][]) => {
  return !visibleTable.some((row, indexRow) => {
       return row.some((item: string, indexColumn: number) => {
-        return item === "" || 
+        return (item === "" && !isBombInCell(bombsArray, indexRow, indexColumn)) || 
         (item === "🚩" && !isBombInCell(bombsArray, indexRow, indexColumn)) || 
         (item === "❔"  && !isBombInCell(bombsArray, indexRow, indexColumn))
       })
