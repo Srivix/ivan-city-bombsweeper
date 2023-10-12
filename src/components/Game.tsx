@@ -64,7 +64,7 @@ const Game = () => {
               fontWeight: 900,
               color: "rgb(var(--background-start-rgb))",
               backgroundColor: "rgb(var(--foreground-rgb))",
-              fontSize: 18,
+              fontSize: 16,
               padding: 3,
             }}
             onClick={onClickReset}
