@@ -24,10 +24,11 @@ const generateBomb = (maxCol: number, maxRow: number) => {
   const isBombFarFromFirstOpen = (indexCol: number, indexRow: number, bomb: number[]) => {
     for(let i = indexCol-1; i<=indexCol+1; i++){
       for(let j = indexRow-1; j<=indexRow+1;j++){
-        if(bomb[0] === j && bomb[1] === i){
+        if(bomb[0] === i && bomb[1] === j){
           return false
         }
       }
     }
+    console.log('nueva bomba')
     return true
   }

@@ -5,11 +5,11 @@ import { ICursor } from "@/types/CursorSelector.types";
 import { Dispatch, SetStateAction } from "react";
 
 const CursorSelector = ({
-  onClickReset,
+  resetTable,
   setSelectedCursor,
   selectedCursor,
 }: {
-  onClickReset: () => void;
+  resetTable: () => void;
   setSelectedCursor: Dispatch<SetStateAction<ICursor>>;
   selectedCursor: ICursor;
 }) => {
@@ -51,7 +51,7 @@ const CursorSelector = ({
           fontSize: 16,
           padding: 3,
         }}
-        onClick={onClickReset}
+        onClick={resetTable}
       >
         Reiniciar
       </button>

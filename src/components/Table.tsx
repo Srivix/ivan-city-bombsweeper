@@ -81,12 +81,21 @@ const TableComponent = ({
     return visibleTable;
   };
 
-  useEffect(() => {
-    resetTable();
+  const initTable = () => {
     const newColumns = Array(maxCol).fill("");
     const newTable = Array(maxRow).fill(newColumns);
     setVisibleTable(newTable);
+  };
+
+  useEffect(() => {
+    resetTable();
   }, [maxBombs, maxCol, maxRow]);
+
+  useEffect(() => {
+    if (!bombsArray.length) {
+      initTable();
+    }
+  }, [bombsArray]);
 
   useEffect(() => {
     if (bombsArray.length) {
@@ -132,7 +141,7 @@ const TableComponent = ({
         />
       )}
       <CursorSelector
-        onClickReset={resetTable}
+        resetTable={resetTable}
         selectedCursor={selectedCursor}
         setSelectedCursor={setSelectedCursor}
       />
