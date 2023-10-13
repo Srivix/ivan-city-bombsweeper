@@ -35,6 +35,8 @@ const TableComponent = ({
 
   const onClickReset = () => {
     setBombsArray([]);
+    setIsLost(false);
+    setIsWon(false);
   };
 
   const [isWon, setIsWon] = useState<boolean>(false);
