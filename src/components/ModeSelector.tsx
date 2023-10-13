@@ -23,6 +23,7 @@ const ModeSelector = ({
         return (
           <div
             style={{
+              cursor: "pointer",
               fontSize: 20,
               borderBottom:
                 selectedMode.mode === mode.mode

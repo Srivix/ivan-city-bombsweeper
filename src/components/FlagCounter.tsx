@@ -49,8 +49,8 @@ const FlagCounter = ({
         alignItems: "center",
         fontSize: 16,
         fontWeight: 900,
-        width: 24,
-        height: 24,
+        width: 28,
+        height: 28,
         border: "2px solid rgb(var(--foreground-rgb))",
         background: "rgb(var(--background-start-rgb))",
       }}

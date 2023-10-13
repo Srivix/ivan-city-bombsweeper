@@ -41,7 +41,7 @@ const TableComponent = ({
 
   const [isLost, setIsLost] = useState<boolean>(false);
 
-  const onClickReset = () => {
+  const resetTable = () => {
     setBombsArray([]);
     setIsLost(false);
     setIsWon(false);
@@ -82,16 +82,11 @@ const TableComponent = ({
   };
 
   useEffect(() => {
-    setBombsArray([]);
+    resetTable();
+    const newColumns = Array(maxCol).fill("");
+    const newTable = Array(maxRow).fill(newColumns);
+    setVisibleTable(newTable);
   }, [maxBombs, maxCol, maxRow]);
-
-  useEffect(() => {
-    if (!bombsArray.length) {
-      const newColumns = Array(maxCol).fill("");
-      const newTable = Array(maxRow).fill(newColumns);
-      setVisibleTable(newTable);
-    }
-  }, [bombsArray, maxBombs, maxCol, maxRow]);
 
   useEffect(() => {
     if (bombsArray.length) {
@@ -137,7 +132,7 @@ const TableComponent = ({
         />
       )}
       <CursorSelector
-        onClickReset={onClickReset}
+        onClickReset={resetTable}
         selectedCursor={selectedCursor}
         setSelectedCursor={setSelectedCursor}
       />
