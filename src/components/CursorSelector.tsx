@@ -5,9 +5,11 @@ import { ICursor } from "@/types/CursorSelector.types";
 import { Dispatch, SetStateAction } from "react";
 
 const CursorSelector = ({
+  onClickReset,
   setSelectedCursor,
   selectedCursor,
 }: {
+  onClickReset: () => void;
   setSelectedCursor: Dispatch<SetStateAction<ICursor>>;
   selectedCursor: ICursor;
 }) => {
@@ -39,6 +41,20 @@ const CursorSelector = ({
           </div>
         );
       })}
+      <button
+        style={{
+          borderRadius: 9,
+          fontFamily: "Times New Roman",
+          fontWeight: 900,
+          color: "rgb(var(--background-start-rgb))",
+          backgroundColor: "rgb(var(--foreground-rgb))",
+          fontSize: 16,
+          padding: 3,
+        }}
+        onClick={onClickReset}
+      >
+        Reiniciar
+      </button>
     </div>
   );
 };

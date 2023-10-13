@@ -2,34 +2,15 @@
 
 import ModeSelector from "@/components/ModeSelector";
 import TableComponent from "@/components/Table";
-import { generateBombArray } from "@/helpers/bombs.helper";
 import { selectorModes } from "@/models/ModeSelector.models";
 import { IMode, ModesEnum } from "@/types/ModeSelector.types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Game = () => {
   const [selectedMode, setSelectedMode] = useState<IMode>(
     selectorModes.find((mode) => mode.mode === ModesEnum.EASY) ??
       selectorModes[0]
   );
-
-  const [bombsArray, setBombsArray] = useState<number[][]>(
-    generateBombArray(
-      selectedMode.maxCol,
-      selectedMode.maxRow,
-      selectedMode.maxBombs
-    )
-  );
-
-  useEffect(() => {
-    const { maxCol, maxRow, maxBombs } = selectedMode;
-    setBombsArray(generateBombArray(maxCol, maxRow, maxBombs));
-  }, [selectedMode]);
-
-  const onClickReset = () => {
-    const { maxCol, maxRow, maxBombs } = selectedMode;
-    setBombsArray(generateBombArray(maxCol, maxRow, maxBombs));
-  };
 
   return (
     <>
@@ -39,7 +20,7 @@ const Game = () => {
           padding: 8,
           display: "flex",
           flexDirection: "column",
-          gap: 32,
+          gap: 26,
           alignItems: "center",
           justifyContent: "flex-start",
         }}
@@ -48,35 +29,18 @@ const Game = () => {
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: "column",
             gap: 12,
+            alignItems: "center",
+            justifyContent: "flex-start",
           }}
         >
           <ModeSelector
             setSelectedMode={setSelectedMode}
             selectedMode={selectedMode}
           />
-          <button
-            style={{
-              borderRadius: 9,
-              fontFamily: "Times New Roman",
-              fontWeight: 900,
-              color: "rgb(var(--background-start-rgb))",
-              backgroundColor: "rgb(var(--foreground-rgb))",
-              fontSize: 16,
-              padding: 3,
-            }}
-            onClick={onClickReset}
-          >
-            Reiniciar
-          </button>
+          <TableComponent {...selectedMode} />
         </div>
-        <TableComponent
-          maxCol={selectedMode.maxCol}
-          maxRow={selectedMode.maxRow}
-          bombsArray={bombsArray}
-        />
       </div>
     </>
   );

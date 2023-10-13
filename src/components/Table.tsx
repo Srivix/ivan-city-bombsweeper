@@ -1,5 +1,6 @@
 "use client";
 
+import { generateBombArray } from "@/helpers/bombs.helper";
 import {
   gameIsLost,
   gameIsWon,
@@ -12,27 +13,41 @@ import { useEffect, useState } from "react";
 import CursorSelector from "./CursorSelector";
 
 const TableComponent = ({
+  maxBombs,
   maxRow,
   maxCol,
-  bombsArray,
 }: {
+  maxBombs: number;
   maxRow: number;
   maxCol: number;
-  bombsArray: number[][];
 }) => {
   const columns = Array(maxCol).fill("");
   const table = Array(maxRow).fill(columns);
+
   const [visibleTable, setVisibleTable] = useState(table);
+
+  const [bombsArray, setBombsArray] = useState<number[][]>([]);
 
   const [selectedCursor, setSelectedCursor] = useState<ICursor>(
     selectorCursor.find((cursor) => cursor.cursor === CursorEnum.OPEN) ??
       selectorCursor[0]
   );
 
+  const onClickReset = () => {
+    setBombsArray([]);
+  };
+
   const [isWon, setIsWon] = useState<boolean>(false);
   const [isLost, setIsLost] = useState<boolean>(false);
 
   const onClickCell = (indexRow: number, indexColumn: number) => {
+    const generatedBombArray = !bombsArray.length
+      ? generateBombArray(indexRow, indexColumn, maxCol, maxRow, maxBombs)
+      : bombsArray;
+    if (!bombsArray.length) {
+      setBombsArray(generatedBombArray);
+    }
+
     if (selectedCursor.cursor === CursorEnum.OPEN) {
       if (
         visibleTable[indexRow][indexColumn] !== "🚩" &&
@@ -41,7 +56,7 @@ const TableComponent = ({
         return openCell(
           indexRow,
           indexColumn,
-          bombsArray,
+          generatedBombArray,
           visibleTable,
           maxCol,
           maxRow
@@ -54,15 +69,23 @@ const TableComponent = ({
   };
 
   useEffect(() => {
-    const newColumns = Array(maxCol).fill("");
-    const newTable = Array(maxRow).fill(newColumns);
-    setVisibleTable(newTable);
-  }, [maxCol, maxRow, bombsArray]);
+    setBombsArray([]);
+  }, [maxBombs, maxCol, maxRow]);
 
   useEffect(() => {
-    setIsLost(gameIsLost(visibleTable));
-    setIsWon(gameIsWon(visibleTable, bombsArray));
-  }, [visibleTable]);
+    if (!bombsArray.length) {
+      const newColumns = Array(maxCol).fill("");
+      const newTable = Array(maxRow).fill(newColumns);
+      setVisibleTable(newTable);
+    }
+  }, [bombsArray, maxBombs, maxCol, maxRow]);
+
+  useEffect(() => {
+    if (bombsArray.length) {
+      setIsWon(gameIsWon(visibleTable, bombsArray));
+      setIsLost(gameIsLost(visibleTable));
+    }
+  }, [visibleTable, bombsArray]);
 
   return (
     <div
@@ -81,6 +104,7 @@ const TableComponent = ({
       )}
       {isLost && <p style={{ fontSize: 20 }}>💥Has perdido💥</p>}
       <CursorSelector
+        onClickReset={onClickReset}
         selectedCursor={selectedCursor}
         setSelectedCursor={setSelectedCursor}
       />
