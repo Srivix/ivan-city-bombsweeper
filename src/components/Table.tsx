@@ -2,6 +2,7 @@
 
 import { generateBombArray } from "@/helpers/bombs.helper";
 import {
+  addIconToTable,
   gameIsLost,
   gameIsWon,
   markCell,
@@ -51,6 +52,7 @@ const TableComponent = ({
     const generatedBombArray = !bombsArray.length
       ? generateBombArray(indexRow, indexColumn, maxCol, maxRow, maxBombs)
       : bombsArray;
+
     if (!bombsArray.length) {
       setBombsArray(generatedBombArray);
     }
@@ -85,6 +87,28 @@ const TableComponent = ({
     const newColumns = Array(maxCol).fill("");
     const newTable = Array(maxRow).fill(newColumns);
     setVisibleTable(newTable);
+  };
+
+  const newIconWhenRightClick = (indexRow: number, indexColumn: number) => {
+    switch (visibleTable[indexRow][indexColumn]) {
+      case "":
+        return hasMaxFlags ? "❓" : "🚩";
+      case "🚩":
+        return "❓";
+      case "❓":
+        return "";
+      default:
+        return -1;
+    }
+  };
+
+  const onRightClick = (indexRow: number, indexColumn: number) => {
+    const newIcon = newIconWhenRightClick(indexRow, indexColumn);
+    if (newIcon !== -1) {
+      setVisibleTable(
+        addIconToTable(visibleTable, indexRow, indexColumn, newIcon)
+      );
+    }
   };
 
   useEffect(() => {
@@ -182,6 +206,7 @@ const TableComponent = ({
                       cursor: "pointer",
                     }}
                     key={idx}
+                    onContextMenu={() => onRightClick(indexRow, idx)}
                     onClick={() => {
                       if (!isLost && !isWon) {
                         setVisibleTable(onClickCell(indexRow, idx));
@@ -226,7 +251,7 @@ const CellSwitch = ({ item }: { item: string | number }) => {
 
   switch (item) {
     case 0:
-      return <p></p>;
+      return <p />;
     case "💥":
     case "❓":
     case "💣":

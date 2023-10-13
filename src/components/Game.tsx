@@ -15,6 +15,7 @@ const Game = () => {
   return (
     <>
       <div
+        onContextMenu={(e) => e.preventDefault()}
         style={{
           height: "100vh",
           padding: 8,

@@ -5,4 +5,3 @@ export const selectorCursor: ICursor[] = [
     {cursor: CursorEnum.FLAG, icon: '🚩'},
     {cursor: CursorEnum.DOUBT, icon: '❓'},
 ]
-

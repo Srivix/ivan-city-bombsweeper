@@ -26,7 +26,7 @@ const isBombInCell = (bombsArray: any[], indexRow: number, indexColumn: number) 
     return bombsArray.find((bomb) => bomb.join() === Array.from([indexRow, indexColumn]).join()) 
 }
 
-const addIconToTable = (table: any[], indexRow: number, indexColumn: number, icon: string) => {
+export const addIconToTable = (table: any[], indexRow: number, indexColumn: number, icon: string) => {
     return table.map((row, idxRow) => {
         if (idxRow === indexRow) {
           return row.map((item: string, idxItem: number) => {
