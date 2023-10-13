@@ -17,6 +17,7 @@ const Game = () => {
       <div
         onContextMenu={(e) => e.preventDefault()}
         style={{
+          userSelect: "none",
           height: "100vh",
           padding: 8,
           display: "flex",
