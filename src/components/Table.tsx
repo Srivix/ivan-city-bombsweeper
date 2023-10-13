@@ -11,6 +11,7 @@ import { selectorCursor } from "@/models/CursorSelector.models";
 import { CursorEnum, ICursor } from "@/types/CursorSelector.types";
 import { useEffect, useState } from "react";
 import CursorSelector from "./CursorSelector";
+import FlagCounter from "./FlagCounter";
 
 const TableComponent = ({
   maxBombs,
@@ -33,14 +34,17 @@ const TableComponent = ({
       selectorCursor[0]
   );
 
+  const [hasMaxFlags, setHasMaxFlags] = useState<boolean>(false);
+
+  const [isWon, setIsWon] = useState<boolean>(false);
+
+  const [isLost, setIsLost] = useState<boolean>(false);
+
   const onClickReset = () => {
     setBombsArray([]);
     setIsLost(false);
     setIsWon(false);
   };
-
-  const [isWon, setIsWon] = useState<boolean>(false);
-  const [isLost, setIsLost] = useState<boolean>(false);
 
   const onClickCell = (indexRow: number, indexColumn: number) => {
     const generatedBombArray = !bombsArray.length
@@ -65,7 +69,13 @@ const TableComponent = ({
         );
       }
     } else {
-      return markCell(indexRow, indexColumn, visibleTable, selectedCursor);
+      return markCell(
+        indexRow,
+        indexColumn,
+        visibleTable,
+        selectedCursor,
+        hasMaxFlags
+      );
     }
     return visibleTable;
   };
@@ -105,6 +115,14 @@ const TableComponent = ({
         </p>
       )}
       {isLost && <p style={{ fontSize: 20 }}>💥Has perdido💥</p>}
+      {!isWon && !isLost && (
+        <FlagCounter
+          visibleTable={visibleTable}
+          maxBombs={maxBombs}
+          setHasMaxFlags={setHasMaxFlags}
+          hasMaxFlags={hasMaxFlags}
+        />
+      )}
       <CursorSelector
         onClickReset={onClickReset}
         selectedCursor={selectedCursor}

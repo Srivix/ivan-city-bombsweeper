@@ -13,8 +13,8 @@ export const openCell = (
         : addOpenCellToTable(indexRow, indexColumn, visibleTable, bombsArray, maxCol, maxRow)
 }
 
-export const markCell = (indexRow: number, indexColumn: number, visibleTable: any[], cursor: ICursor) => {
-  if(visibleTable[indexRow][indexColumn] === ""){
+export const markCell = (indexRow: number, indexColumn: number, visibleTable: any[], cursor: ICursor, hasMaxFlags: boolean) => {
+  if(visibleTable[indexRow][indexColumn] === "" && !(cursor.icon === '🚩' && hasMaxFlags)){
     return addIconToTable(visibleTable, indexRow, indexColumn, cursor.icon)
   }
 
