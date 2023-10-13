@@ -29,6 +29,5 @@ const generateBomb = (maxCol: number, maxRow: number) => {
         }
       }
     }
-    console.log('nueva bomba')
     return true
   }
