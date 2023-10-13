@@ -5,6 +5,7 @@ import {
   gameIsLost,
   gameIsWon,
   markCell,
+  openBombsInTable,
   openCell,
 } from "@/helpers/table.helper";
 import { selectorCursor } from "@/models/CursorSelector.models";
@@ -98,6 +99,18 @@ const TableComponent = ({
       setIsLost(gameIsLost(visibleTable));
     }
   }, [visibleTable, bombsArray]);
+
+  useEffect(() => {
+    if (isLost) {
+      setVisibleTable(openBombsInTable(visibleTable, bombsArray, "💣"));
+    }
+  }, [isLost]);
+
+  useEffect(() => {
+    if (isWon) {
+      setVisibleTable(openBombsInTable(visibleTable, bombsArray, "🚩"));
+    }
+  }, [isWon]);
 
   return (
     <div
@@ -210,6 +223,7 @@ const CellSwitch = ({ item }: { item: string | number }) => {
   switch (item) {
     case 0:
       return <p></p>;
+    case "💥":
     case "❓":
     case "💣":
     case "🚩":

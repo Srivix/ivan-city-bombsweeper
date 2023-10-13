@@ -9,7 +9,7 @@ export const openCell = (
     maxRow: number
 ) => {
     return isBombInCell(bombsArray, indexRow, indexColumn)
-        ? addIconToTable(visibleTable, indexRow, indexColumn, "💣") 
+        ? addIconToTable(visibleTable, indexRow, indexColumn, "💥") 
         : addOpenCellToTable(indexRow, indexColumn, visibleTable, bombsArray, maxCol, maxRow)
 }
 
@@ -38,6 +38,19 @@ const addIconToTable = (table: any[], indexRow: number, indexColumn: number, ico
         }
         return row
       })
+}
+
+export const openBombsInTable =  (table: any[], bombsArray: number[][], icon: string) => {
+  return table.map((row, idxRow) => {
+      return row.map((item: string, idxItem: number) => {
+        if (bombsArray.find(bomb => {
+          return bomb[0] === idxRow && bomb[1] === idxItem
+        }) && item !== '💥') {
+          return icon
+        }
+        return item;
+      })
+  })
 }
 
 const countNeighbourBombs = (
@@ -123,7 +136,7 @@ const addOpenCellToTable = (
 export const gameIsLost = (visibleTable: any[]) => {
   return visibleTable.some((row) => {
       return row.some((item: string) => {
-        return item === '💣'
+        return item === '💥'
       })
     })
 }
